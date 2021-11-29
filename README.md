@@ -4,13 +4,14 @@ A new Flutter project.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+This is a sumission of Side Hustle project https://internship.sidehustle.ng.
 
-A few resources to get you started if this is your first Flutter project:
+Login page
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![login](https://user-images.githubusercontent.com/66129851/142410115-5b34b794-39f8-4583-8fd2-b77bda709c33.png)
+
+Signup page
+
+
+![signup](https://user-images.githubusercontent.com/66129851/142410183-f033d423-1787-491b-ac6e-51da463f7e0d.png)
