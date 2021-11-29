@@ -1,7 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:side_hustle_project_1/pages/WelcomePage.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
+  static String id = 'signup';
 
   @override
   _SignUpState createState() => _SignUpState();
@@ -14,6 +18,31 @@ class _SignUpState extends State<SignUp> {
   double inputMargin = 50.0;
   double inputPadding = 20.0;
 
+  String username = '';
+  String email = '';
+  String phone = '';
+  String password = '';
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  signUp() async {
+    if (email != "" && password != "" && username != "" && phone != "") {
+      await _auth
+          .createUserWithEmailAndPassword(email: email, password: password)
+          .whenComplete(() {
+        Navigator.popAndPushNamed(
+          context,
+          WelcomePage.id,
+          arguments: {
+            'username': username,
+            'email': email,
+            'phone': phone,
+            'password': password
+          },
+        );
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,15 +76,11 @@ class _SignUpState extends State<SignUp> {
                 border: Border.all(color: Colors.blue),
               ),
               child: TextField(
+                onChanged: (txt) {
+                  username = txt;
+                },
                 textCapitalization: TextCapitalization.words,
                 keyboardType: TextInputType.text,
-                onChanged: (value) {
-                  if (value.length > 10) {
-                    SnackBar snackBar =
-                    SnackBar(content: Text('E Don Do for you self'));
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                  }
-                },
                 decoration: InputDecoration(
                   border: InputBorder.none,
                   icon: Icon(Icons.person),
@@ -73,6 +98,9 @@ class _SignUpState extends State<SignUp> {
               padding: EdgeInsets.symmetric(horizontal: inputPadding),
               margin: EdgeInsets.symmetric(horizontal: inputMargin),
               child: TextField(
+                onChanged: (txt) {
+                  email = txt;
+                },
                 textCapitalization: TextCapitalization.words,
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
@@ -92,6 +120,9 @@ class _SignUpState extends State<SignUp> {
                 border: Border.all(color: Colors.blue),
               ),
               child: TextField(
+                onChanged: (txt) {
+                  phone = txt;
+                },
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
                   hintText: 'Phone',
@@ -110,6 +141,9 @@ class _SignUpState extends State<SignUp> {
                 border: Border.all(color: Colors.blue),
               ),
               child: TextField(
+                onChanged: (txt) {
+                  password = txt;
+                },
                 decoration: InputDecoration(
                   border: InputBorder.none,
                   hintText: 'Password',
@@ -121,7 +155,9 @@ class _SignUpState extends State<SignUp> {
             Container(
               margin: EdgeInsets.symmetric(horizontal: inputMargin),
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () async {
+                  signUp();
+                },
                 child: Text('SIGN UP'),
                 style: ButtonStyle(
                   shape: MaterialStateProperty.all(
@@ -143,8 +179,11 @@ class _SignUpState extends State<SignUp> {
                     style: TextStyle(color: Colors.grey[600]),
                   ),
                   InkWell(
-                    onTap: (){
-                      Navigator.pushNamed(context, '/');
+                    onTap: () {
+                      Navigator.pushNamed(context, WelcomePage.id, arguments: {
+                        'username': username,
+                        'phone': phone,
+                      });
                     },
                     child: Text(
                       "Sign In",
@@ -159,12 +198,12 @@ class _SignUpState extends State<SignUp> {
               children: [
                 Expanded(
                   child:
-                  Divider(thickness: 2, indent: inputMargin, endIndent: 30),
+                      Divider(thickness: 2, indent: inputMargin, endIndent: 30),
                 ),
                 Text('OR', style: TextStyle(color: Colors.blue)),
                 Expanded(
                   child:
-                  Divider(thickness: 2, indent: 30, endIndent: inputMargin),
+                      Divider(thickness: 2, indent: 30, endIndent: inputMargin),
                 ),
               ],
             ),

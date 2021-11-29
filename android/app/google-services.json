@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1062671502766",
+    "project_id": "side-hustle-internship-b801d",
+    "storage_bucket": "side-hustle-internship-b801d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1062671502766:android:1d3715878969e76e180c3f",
+        "android_client_info": {
+          "package_name": "com.example.side_hustle_project_1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1062671502766-b8e6850kj8v2h32bq9nf170ggeic5u92.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.side_hustle_project_1",
+            "certificate_hash": "c45f4a2566efec417cfe0c9f9bb3a67c74c257fe"
+          }
+        },
+        {
+          "client_id": "1062671502766-72qb6lc72gv49rckt7218bmt7cb4hkkn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCG9muXxWVKj1Pw3AlvGOBgGBaNM1dEydQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1062671502766-72qb6lc72gv49rckt7218bmt7cb4hkkn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

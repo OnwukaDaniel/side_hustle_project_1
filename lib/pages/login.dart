@@ -1,8 +1,19 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:side_hustle_project_1/pages/sign_up.dart';
+
+import 'WelcomePage.dart';
 
 class Login extends StatelessWidget {
-  const Login({Key? key}) : super(key: key);
+  Login({Key? key}) : super(key: key);
+  static String id = 'login';
+
+  String email = '';
+  String phone = '';
+  String password = '';
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -21,17 +32,6 @@ class Login extends StatelessWidget {
       body: SafeArea(
         child: ListView(
           children: [
-            /*InkWell(
-              child: Row(
-                children: [
-                  SizedBox(width: 20, height: 50),
-                  Icon(Icons.arrow_back_ios),
-                ],
-              ),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),*/
             Image.asset('assets/reading.jpg', height: 200),
             Container(
               margin: EdgeInsets.symmetric(horizontal: inputMargin),
@@ -47,9 +47,12 @@ class Login extends StatelessWidget {
             Container(
               margin: EdgeInsets.symmetric(horizontal: inputMargin),
               child: TextField(
+                onChanged: (txt) {
+                  email = txt;
+                },
                 textCapitalization: TextCapitalization.words,
                 decoration: InputDecoration(
-                  hintText: "Username",
+                  hintText: "E-mail",
                   suffixIcon: Icon(Icons.person),
                 ),
               ),
@@ -57,6 +60,9 @@ class Login extends StatelessWidget {
             Container(
               margin: EdgeInsets.symmetric(horizontal: inputMargin),
               child: TextField(
+                onChanged: (txt) {
+                  password = txt;
+                },
                 decoration: InputDecoration(
                   suffixIcon: Icon(Icons.lock_open),
                   hintText: "Password",
@@ -67,7 +73,12 @@ class Login extends StatelessWidget {
             Container(
               margin: EdgeInsets.symmetric(horizontal: inputMargin + 4),
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () async {
+                  await _auth.signInWithEmailAndPassword(
+                      email: email, password: password).whenComplete(() {
+                    Navigator.pushNamed(context, WelcomePage.id);
+                  });
+                },
                 child: Text('Login'),
                 style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(colorMarineBlue),
@@ -88,14 +99,14 @@ class Login extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text("Don't have an account?",
-                    style: TextStyle(color: Colors.grey[600], fontSize: 12)),
+                    style: TextStyle(color: Colors.grey[600], fontSize: 15)),
                 SizedBox(width: 30),
                 InkWell(
-                  onTap: (){
-                    Navigator.pushNamed(context, '/signup');
+                  onTap: () {
+                    Navigator.pushNamed(context, SignUp.id);
                   },
                   child: Text('SignUp',
-                      style: TextStyle(color: Colors.blue[600], fontSize: 12)),
+                      style: TextStyle(color: Colors.blue[600], fontSize: 16)),
                 ),
               ],
             ),
@@ -104,23 +115,24 @@ class Login extends StatelessWidget {
               children: [
                 Expanded(
                     child: Divider(
-                  indent: inputMargin * 2,
-                  endIndent: inputMargin / 2,
-                )),
+                      indent: inputMargin * 2,
+                      endIndent: inputMargin / 2,
+                    )),
                 Text('or login with?',
                     style: TextStyle(color: Colors.grey[600], fontSize: 12)),
                 Expanded(
                     child: Divider(
-                  indent: inputMargin / 2,
-                  endIndent: inputMargin * 2,
-                )),
+                      indent: inputMargin / 2,
+                      endIndent: inputMargin * 2,
+                    )),
               ],
             ),
             SizedBox(height: 25),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: icons
-                  .map((e) => CircleAvatar(
+                  .map((e) =>
+                  CircleAvatar(
                       backgroundImage: e, backgroundColor: Colors.white))
                   .toList(),
             ),
